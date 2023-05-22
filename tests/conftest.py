@@ -119,7 +119,7 @@ def raw_weathers():
 
 
 @pytest.fixture()
-def calculation_weather_statistics():
+def calculated_stats():
     prepared_data_1 = CityPreparedData()
     prepared_data_1.put(datetime.date(year=2022, month=1, day=1), 6, 6)
     prepared_data_1.put(datetime.date(year=2022, month=1, day=2), 9, 9)
@@ -131,7 +131,7 @@ def calculation_weather_statistics():
 
 
 @pytest.fixture()
-def sort_calculation_weather_statistics():
+def sort_calculated_stats():
     prepared_data_1 = CityPreparedData()
     prepared_data_1.put(datetime.date(year=2022, month=1, day=1), 6, 6)
     prepared_data_1.put(datetime.date(year=2022, month=1, day=2), 9, 9)
