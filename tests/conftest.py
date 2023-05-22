@@ -16,9 +16,7 @@ def prepared_data():
 
 @pytest.fixture()
 def raw_weathers():
-    return ('CAIRO',
-        ForecastSchema(
-            forecasts=[
+    return ('CAIRO', ForecastSchema(forecasts=[
                 GeneralForecastSchema(date='2022-05-26', hours=[
                                                             DetailForecastSchema(hour='0', temp=23, condition='clear'),
                                                             DetailForecastSchema(hour='1', temp=23, condition='clear'),

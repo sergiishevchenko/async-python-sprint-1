@@ -111,7 +111,7 @@ class DataAnalyzingTask:
                     writer.writerow(headers)
                 for element in data:
                     writer.writerow(element)
-                logger.info('Создаём файл {}'.format(consts.CSV_FILE))
+                logger.info('Creation file - {}'.format(consts.CSV_FILE))
                 return consts.CSV_FILE
             except Exception as error:
                 logger.error('Error - {}'.format(error))
