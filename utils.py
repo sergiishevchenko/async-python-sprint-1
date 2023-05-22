@@ -22,6 +22,7 @@ CITIES = {
 
 MIN_MAJOR_PYTHON_VER = 3
 MIN_MINOR_PYTHON_VER = 9
+ERR_MESSAGE_TEMPLATE = "Unexpected error: {error}"
 
 
 def check_python_version():

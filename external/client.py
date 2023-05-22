@@ -1,12 +1,11 @@
 import json
-import logging
 from http import HTTPStatus
+from logger import get_logger
 from urllib.request import urlopen
+from utils import ERR_MESSAGE_TEMPLATE, get_url_by_city_name
 
-ERR_MESSAGE_TEMPLATE = "Unexpected error: {error}"
 
-
-logger = logging.getLogger()
+logger = get_logger('root')
 
 
 class YandexWeatherAPI:
@@ -27,14 +26,11 @@ class YandexWeatherAPI:
                     )
                 )
             return data
-        except Exception as ex:
-            logger.error(ex)
-            raise Exception(ERR_MESSAGE_TEMPLATE.format(error=ex))
+        except Exception as error:
+            logger.error(error)
+            raise Exception(ERR_MESSAGE_TEMPLATE.format(error=error))
 
     @staticmethod
-    def get_forecasting(url: str):
-        """
-        :param url: url_to_json_data as str
-        :return: response data as json
-        """
+    def get_forecasting(city: str):
+        url = get_url_by_city_name(city)
         return YandexWeatherAPI.__do_req(url)
