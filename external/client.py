@@ -1,5 +1,6 @@
 import json
 from http import HTTPStatus
+
 from logger import get_logger
 from urllib.request import urlopen
 from utils import ERR_MESSAGE_TEMPLATE, get_url_by_city_name
