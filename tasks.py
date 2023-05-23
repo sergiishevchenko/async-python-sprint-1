@@ -14,8 +14,8 @@ class CityPreparedData:
 
     def __init__(self) -> None:
         self.prepared_data: dict[datetime.date, dict[str, int]] = {}
-        self._avg_condition: Optional[int] = None
-        self._avg_temperature: Optional[float] = None
+        self._avg_good_condition: Optional[int] = None
+        self._avg_good_temperature: Optional[float] = None
 
     def put(self, date: datetime.date, good_temperature: int, good_condition: int) -> None:
         self.prepared_data[date] = {'good_temperature': good_temperature, 'good_condition': good_condition}
@@ -101,7 +101,7 @@ class DataAggregationTask:
 class DataAnalyzingTask:
     """Класс для финального анализа и получения результата."""
 
-    def create_csv_file(self, data: list[list[Any]], headers: list[str]) -> str:
+    def create_and_save_data_to_csv_file(self, data: list[list[Any]], headers: list[str]) -> str:
         with open(Settings.CSV_FILE, 'w', newline='', encoding='utf-8') as file:
             try:
                 writer = csv.writer(file, quotechar='"', quoting=csv.QUOTE_ALL)
@@ -124,7 +124,7 @@ class DataAnalyzingTask:
 
         return sorted(list(set_data))
 
-    def write_down_data_to_csv_file(self, sorted_calculated_stats) -> None:
+    def add_prepared_data_to_csv_file(self, sorted_calculated_stats) -> None:
         set_data = self.get_prepared_data(sorted_calculated_stats)
         headers = ['Город/день', '', *[f'{date.day:02}-{date.month:02}' for date in set_data], 'Среднее', 'Рейтинг']
 
@@ -146,10 +146,10 @@ class DataAnalyzingTask:
             row2.append(forecast.avg_good_condition)
             data.append(row1)
             data.append(row2)
-        return self.create_csv_file(data=data, headers=headers)
+        return self.create_and_save_data_to_csv_file(data=data, headers=headers)
 
     def run(self, sorted_calculated_stats: list[tuple[str, CityPreparedData]]) -> list[str]:
-        self.write_down_data_to_csv_file(sorted_calculated_stats)
+        self.add_prepared_data_to_csv_file(sorted_calculated_stats)
         return self.get_cities_with_best_data(sorted_calculated_stats)
 
     def get_cities_with_best_data(self, sorted_calculated_stats):
