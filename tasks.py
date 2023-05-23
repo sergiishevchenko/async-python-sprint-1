@@ -6,7 +6,7 @@ from typing import Any, Iterator, Optional
 
 import consts
 from external.client import logger
-from schema import ForecastSchema
+from schema import ForecastSchema, Settings
 from utils import ERR_MESSAGE_TEMPLATE
 
 
@@ -76,9 +76,9 @@ class DataCalculationTask:
             self.good_condition = []
             self.good_temperature = []
             for hour in data.hours:
-                if consts.START_DAY <= int(hour.hour) <= consts.END_DAY:
+                if Settings.START_DAY <= int(hour.hour) <= Settings.END_DAY:
                     self.good_temperature.append(int(hour.temp))
-                    if hour.condition in consts.GOOD_CONDITION:
+                    if hour.condition in Settings.GOOD_CONDITION:
                         self.good_condition.append(hour.condition)
 
             if self.good_temperature:
@@ -103,7 +103,7 @@ class DataAnalyzingTask:
     """Класс для финального анализа и получения результата."""
 
     def create_csv_file(self, data: list[list[Any]], headers: list[str]) -> str:
-        with open(consts.CSV_FILE, 'w', newline='', encoding='utf-8') as file:
+        with open(Settings.CSV_FILE, 'w', newline='', encoding='utf-8') as file:
             try:
                 writer = csv.writer(file, quotechar='"', quoting=csv.QUOTE_ALL)
                 if headers is not None:
@@ -111,8 +111,8 @@ class DataAnalyzingTask:
                     writer.writerow(headers)
                 for element in data:
                     writer.writerow(element)
-                logger.info('Creation file - {}'.format(consts.CSV_FILE))
-                return consts.CSV_FILE
+                logger.info('Creation file - {}'.format(Settings.CSV_FILE))
+                return Settings.CSV_FILE
             except Exception as error:
                 logger.error('Error - {}'.format(error))
                 raise Exception(ERR_MESSAGE_TEMPLATE.format(error))

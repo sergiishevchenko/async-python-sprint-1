@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, BaseSettings
 
 
 class DetailForecastSchema(BaseModel):
@@ -14,3 +14,11 @@ class GeneralForecastSchema(BaseModel):
 
 class ForecastSchema(BaseModel):
     forecasts: list[GeneralForecastSchema]
+
+
+class Settings(BaseSettings):
+
+    START_DAY: START_DAY = 9
+    END_DAY: END_DAY = 19
+    GOOD_CONDITION: GOOD_CONDITION = ('clear', 'partly-cloudy', 'cloudy', 'overcast')
+    CSV_FILE: CSV_FILE = 'output.csv'
