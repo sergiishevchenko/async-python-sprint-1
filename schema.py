@@ -18,7 +18,7 @@ class ForecastSchema(BaseModel):
 
 class Settings(BaseSettings):
 
-    START_DAY: START_DAY = 9
-    END_DAY: END_DAY = 19
-    GOOD_CONDITION: GOOD_CONDITION = ('clear', 'partly-cloudy', 'cloudy', 'overcast')
-    CSV_FILE: CSV_FILE = 'output.csv'
+    START_DAY: int = 9
+    END_DAY: int = 19
+    GOOD_CONDITION: tuple = ('clear', 'partly-cloudy', 'cloudy', 'overcast')
+    CSV_FILE: str = 'output.csv'
