@@ -4,7 +4,6 @@ import statistics
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Iterator, Optional
 
-import consts
 from external.client import logger
 from schema import ForecastSchema, Settings
 from utils import ERR_MESSAGE_TEMPLATE

@@ -18,7 +18,11 @@ def forecast_weather():
     max_workers = min(32, (cores_count or 1) + 4)
 
     logger.info('Fetching has started.')
-    data_fetching_task = DataFetchingTask(cities=CITIES.keys(), forecast_api=YandexWeatherAPI(), forecast_schema=ForecastSchema)
+    data_fetching_task = DataFetchingTask(
+        cities=CITIES.keys(),
+        forecast_api=YandexWeatherAPI(),
+        forecast_schema=ForecastSchema
+    )
     raw_data_fetching = data_fetching_task.get_prepared_data(max_workers=max_workers)
 
     logger.info('Calculation has started.')
