@@ -14,25 +14,25 @@ class CityPreparedData:
 
     def __init__(self) -> None:
         self.prepared_data: dict[datetime.date, dict[str, int]] = {}
-        self.avg_condition: Optional[int] = None
-        self.avg_temperature: Optional[float] = None
+        self._avg_condition: Optional[int] = None
+        self._avg_temperature: Optional[float] = None
 
     def put(self, date: datetime.date, good_temperature: int, good_condition: int) -> None:
         self.prepared_data[date] = {'good_temperature': good_temperature, 'good_condition': good_condition}
-        self.avg_good_condition = None
-        self.avg_good_temperature = None
+        self._avg_good_condition = None
+        self._avg_good_temperature = None
 
     @property
     def avg_good_condition(self) -> int:
-        if self.avg_good_condition is None:
-            self.avg_good_condition = int(statistics.mean([value.get('good_condition') for value in self.prepared_data.values()]))
-        return self.avg_good_condition
+        if self._avg_good_condition is None:
+            self._avg_good_condition = int(statistics.mean([value.get('good_condition') for value in self.prepared_data.values()]))
+        return self._avg_good_condition
 
     @property
     def avg_good_temperature(self) -> float:
-        if self.avg_good_temperature is None:
-            self.avg_good_temperature = round(statistics.mean([value.get('good_temperature') for value in self.prepared_data.values()]), 1)
-        return self.avg_good_temperature
+        if self._avg_good_temperature is None:
+            self._avg_good_temperature = round(statistics.mean([value.get('good_temperature') for value in self.prepared_data.values()]), 1)
+        return self._avg_good_temperature
 
     @property
     def ratio_temperature_and_condition(self):
